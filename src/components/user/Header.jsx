@@ -116,26 +116,19 @@ function ProfileMenu() {
 
 export default function Header() {
   return (
-    <Navbar fullWidth="false" className="w-full p-1 px-5 lg:pl-6">
+    <Navbar
+      fullWidth
+      className="w-full p-1 px-5 lg:pl-6 bg-gradient-to-br from-green-100"
+    >
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <div className="flex gap-4 items-center">
           <Logo />
-          <Typography
-            as="a"
-            href="#"
-            hoverColor="blue"
-            className="flex gap-1 font-bold mr-3"
-          >
+          <Typography as="a" href="#" className="flex gap-1 font-bold mr-3">
             <AcademicCapIcon className="h-6 w-6" />
             Việc Làm
           </Typography>
 
-          <Typography
-            as="a"
-            href="#"
-            hoverColor="blue"
-            className="flex gap-1 font-bold"
-          >
+          <Typography as="a" href="#" className="flex gap-1 font-bold">
             <BriefcaseIcon className="h-6 w-6" />
             Công Ty
           </Typography>
@@ -145,7 +138,7 @@ export default function Header() {
           <Button size="sm">
             <span>Log In</span>
           </Button>
-          {/* <ProfileMenu /> */}
+          <ProfileMenu />
         </div>
       </div>
     </Navbar>
