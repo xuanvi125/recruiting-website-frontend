@@ -18,9 +18,9 @@ function Login() {
   const onSubmit = async (data) => {
     const res = await authServices.login(data);
     if (res.status === "success") {
-      localStorage.setItem("token", res.token);
+      localStorage.setItem("token", res.data.access_token);
       dispatch({ type: "LOG_IN", payload: { user: res.data.user } });
-      location.reload();
+      toast.success("Login successfully");
     } else {
       toast.error(res.message);
     }

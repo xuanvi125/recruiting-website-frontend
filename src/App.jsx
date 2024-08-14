@@ -9,6 +9,7 @@ import CompanyPage from "./pages/user/CompanyPage";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import GuestRoute from "./utils/GuestRoute";
+import ProtectedRoute from "./utils/ProtectedRoute";
 export default function App() {
   return (
     <>
@@ -16,6 +17,18 @@ export default function App() {
         <Route path="/user" element={<UserLayout />}>
           <Route path="home" index element={<HomePage />} />
           <Route path="company" element={<CompanyPage />} />
+          <Route
+            path="profile"
+            element={<ProtectedRoute>Profile</ProtectedRoute>}
+          />
+          <Route
+            path="resume"
+            element={<ProtectedRoute>Resume</ProtectedRoute>}
+          />
+          <Route
+            path="change-password"
+            element={<ProtectedRoute>Change Password</ProtectedRoute>}
+          />
         </Route>
 
         <Route path="/" element={<Navigate to={"/login"} replace />} />

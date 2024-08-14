@@ -16,7 +16,6 @@ import { Pagination } from "../../components/user/Pagination";
 import * as JobServices from "../../services/JobService";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 function HomePage() {
   const [jobs, setJobs] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -67,7 +66,7 @@ function HomePage() {
             <Select
               value={`${searchParam.get("sort") || "salary"}`}
               onChange={handleChange}
-              label="Lọc Theo"
+              label="Sắp Xếp Theo"
             >
               <Option value="salary">Mức Lương</Option>
               <Option value="level">Level</Option>

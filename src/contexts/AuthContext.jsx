@@ -44,10 +44,10 @@ export function AuthProvider({ children }) {
     }
     async function fetchUser() {
       const data = await userService.getMe();
-      if (data.status === "success") {
+      if (data.status == "success") {
         dispatch({
           type: "INIT",
-          payload: { isAuth: true, user: data.data.user },
+          payload: { isAuth: true, user: data.data },
         });
       } else {
         console.log(data.message);

@@ -36,18 +36,17 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
+    link: "/user/profile",
   },
   {
-    label: "Edit Profile",
+    label: "My Resume",
     icon: Cog6ToothIcon,
+    link: "/user/resume",
   },
   {
-    label: "Inbox",
+    label: "Change Password",
     icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
+    link: "/user/change-password",
   },
   {
     label: "Sign Out",
@@ -56,6 +55,7 @@ const profileMenuItems = [
 ];
 
 function ProfileMenu() {
+  const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -73,7 +73,10 @@ function ProfileMenu() {
             size="sm"
             alt="tania andrew"
             className="border border-gray-900 p-0.5"
-            src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg"
+            src={
+              user?.avatar ||
+              "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg"
+            }
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -84,31 +87,33 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
+            <Link to={link} key={label}>
+              <MenuItem
+                key={label}
+                onClick={closeMenu}
+                className={`flex items-center gap-2 rounded ${
+                  isLastItem
+                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                    : ""
+                }`}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                {React.createElement(icon, {
+                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color={isLastItem ? "red" : "inherit"}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </Link>
           );
         })}
       </MenuList>
@@ -145,13 +150,18 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           {!user && (
-            <Button size="sm">
-              <span>Log In</span>
-            </Button>
+            <Link to={"/login"}>
+              <Button size="sm">
+                <span>Log In</span>
+              </Button>
+            </Link>
           )}
-          <ProfileMenu />
+          <div className="flex items-center gap-2">
+            <p className="font-bold">{user?.name}</p>
+            <ProfileMenu />
+          </div>
         </div>
       </div>
     </Navbar>
