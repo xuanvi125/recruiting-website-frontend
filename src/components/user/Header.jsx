@@ -28,6 +28,7 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -123,15 +124,23 @@ export default function Header() {
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <div className="flex gap-4 items-center">
           <Logo />
-          <Typography as="a" href="#" className="flex gap-1 font-bold mr-3">
-            <AcademicCapIcon className="h-6 w-6" />
-            Việc Làm
-          </Typography>
+          <Link to={"/user/home"}>
+            <Typography
+              as="a"
+              href="/user/home"
+              className="flex gap-1 font-bold mr-3"
+            >
+              <AcademicCapIcon className="h-6 w-6" />
+              Việc Làm
+            </Typography>
+          </Link>
 
-          <Typography as="a" href="#" className="flex gap-1 font-bold">
-            <BriefcaseIcon className="h-6 w-6" />
-            Công Ty
-          </Typography>
+          <Link to={"/user/company"}>
+            <Typography className="flex gap-1 font-bold">
+              <BriefcaseIcon className="h-6 w-6" />
+              Công Ty
+            </Typography>
+          </Link>
         </div>
 
         <div className="flex gap-2">

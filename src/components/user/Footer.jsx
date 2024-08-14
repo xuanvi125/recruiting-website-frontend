@@ -1,5 +1,4 @@
 import { Typography } from "@material-tailwind/react";
-import Logo from "./Logo";
 
 const LINKS = [
   {
@@ -25,8 +24,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <Typography variant="h5" className="mb-6">
             <div className="flex">
-              <img width="200px" src="./logo.svg" alt="" />
-              <img src="./bg-left.webp" width="50px" alt="" />
+              <img width="200px" src="/logo.svg" alt="" />
+              <img src="/bg-left.webp" width="50px" alt="" />
             </div>
           </Typography>
           <div className="grid grid-cols-3 justify-between gap-4">
