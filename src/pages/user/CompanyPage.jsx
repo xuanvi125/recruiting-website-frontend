@@ -1,12 +1,20 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
-import { useState } from "react";
-import CompanyCard from "../../components/user/CompanyCard";
+import { useEffect, useState } from "react";
+import * as CompanyServices from "../../services/CompanyService";
 import CompanyList from "../../components/user/CompanyList";
 
 function CompanyPage() {
   const [key, setKey] = useState("");
   const onChange = ({ target }) => setKey(target.value);
-  const companies = [1, 2, 3, 4, 5, 6];
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    async function fetchCompanies() {
+      const data = await CompanyServices.getCompany();
+      setCompanies(data.data.result);
+    }
+    fetchCompanies();
+  }, []);
   return (
     <div className="container mx-auto">
       <div className="flex justify-between">

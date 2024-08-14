@@ -1,20 +1,26 @@
 import React from "react";
 import { IconButton, Typography } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useSearchParams } from "react-router-dom";
 
-export function Pagination() {
-  const [active, setActive] = React.useState(1);
+export function Pagination({ totalPages = 10 }) {
+  const [searchParam, setSearchParam] = useSearchParams();
+  const active = parseInt(searchParam.get("page")) || 1;
 
+  function updateSearchParams(val) {
+    const searchParams = new URLSearchParams(searchParam);
+    searchParams.set("page", val);
+    setSearchParam(searchParams);
+  }
   const next = () => {
-    if (active === 10) return;
+    if (active === totalPages) return;
 
-    setActive(active + 1);
+    updateSearchParams(active + 1);
   };
 
   const prev = () => {
     if (active === 1) return;
-
-    setActive(active - 1);
+    updateSearchParams(active - 1);
   };
 
   return (
@@ -29,13 +35,13 @@ export function Pagination() {
       </IconButton>
       <Typography color="gray" className="font-normal">
         Page <strong className="text-gray-900">{active}</strong> of{" "}
-        <strong className="text-gray-900">10</strong>
+        <strong className="text-gray-900">{totalPages}</strong>
       </Typography>
       <IconButton
         size="sm"
         variant="outlined"
         onClick={next}
-        disabled={active === 10}
+        disabled={active === totalPages}
       >
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
       </IconButton>

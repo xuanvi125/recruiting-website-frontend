@@ -11,9 +11,38 @@ import {
 import Banner from "../../components/user/Banner";
 import { JobSearch } from "../../components/user/JobSearch";
 import Slogan from "../../components/user/Slogan";
-import JobCard from "../../components/user/JobCard";
+import ListJobCard from "../../components/user/ListJobCard";
 import { Pagination } from "../../components/user/Pagination";
+import * as JobServices from "../../services/JobService";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { set } from "react-hook-form";
 function HomePage() {
+  const [jobs, setJobs] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [searchParam, setSearchParam] = useSearchParams();
+
+  function handleChange(e) {
+    const searchParams = new URLSearchParams(searchParam);
+    searchParams.set("sort", e);
+    setSearchParam(searchParams);
+  }
+
+  function handleChangeLocation(e) {
+    const searchParams = new URLSearchParams(searchParam);
+    searchParams.set("location", e);
+    setSearchParam(searchParams);
+  }
+
+  useEffect(() => {
+    async function fetchJobs() {
+      const res = await JobServices.searchJob(searchParam);
+      setJobs(res.data.result);
+      setTotalPages(res.data.metaData.totalPages);
+    }
+    fetchJobs();
+  }, [searchParam]);
+
   return (
     <div>
       <Slogan />
@@ -35,7 +64,11 @@ function HomePage() {
         </Typography>
         <div className="flex gap-3 items-center">
           <div className="w-72">
-            <Select defaultValue="salary" label="Lọc Theo">
+            <Select
+              value={`${searchParam.get("sort") || "salary"}`}
+              onChange={handleChange}
+              label="Lọc Theo"
+            >
               <Option value="salary">Mức Lương</Option>
               <Option value="level">Level</Option>
             </Select>
@@ -52,6 +85,7 @@ function HomePage() {
                       id="horizontal-list-react"
                       ripple={false}
                       name="location"
+                      onChange={() => handleChangeLocation("Ho Chi Minh")}
                       className="hover:before:opacity-0"
                       containerProps={{
                         className: "p-0",
@@ -73,6 +107,7 @@ function HomePage() {
                       id="horizontal-list-vue"
                       ripple={false}
                       name="location"
+                      onChange={() => handleChangeLocation("Ha Noi")}
                       className="hover:before:opacity-0"
                       containerProps={{
                         className: "p-0",
@@ -94,6 +129,7 @@ function HomePage() {
                       name="location"
                       id="horizontal-list-svelte"
                       ripple={false}
+                      onChange={() => handleChangeLocation("Da Nang")}
                       className="hover:before:opacity-0"
                       containerProps={{
                         className: "p-0",
@@ -108,19 +144,11 @@ function HomePage() {
             </List>
           </Card>
         </div>
-        <div className="grid grid-cols-3 gap-2">
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
+        <div>
+          <ListJobCard jobs={jobs} />
         </div>
         <div className="mt-3">
-          <Pagination />
+          <Pagination totalPages={totalPages} />
         </div>
       </div>
     </div>
