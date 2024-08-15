@@ -26,6 +26,7 @@ import {
   Bars2Icon,
   AcademicCapIcon,
   BriefcaseIcon,
+  BellAlertIcon,
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -48,6 +49,11 @@ const profileMenuItems = [
     label: "Change Password",
     icon: InboxArrowDownIcon,
     link: "/user/change-password",
+  },
+  {
+    label: "Subscribe Jobs",
+    icon: BellAlertIcon,
+    link: "/user/subscribe-jobs",
   },
   {
     label: "Sign Out",

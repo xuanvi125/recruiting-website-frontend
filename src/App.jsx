@@ -13,6 +13,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import ProfileForm from "./components/user/ProfileForm";
 import { UpdatePasswordForm } from "./components/user/UpdatePasswordForm";
 import ResumeTable from "./components/user/ResumeTable";
+import SubscribeJobFrom from "./components/user/SubscribeJobFrom";
 export default function App() {
   return (
     <>
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="profile" element={<ProfileForm />} />
           <Route path="resume" element={<ResumeTable />} />
           <Route path="change-password" element={<UpdatePasswordForm />} />
+          <Route path="subscribe-jobs" element={<SubscribeJobFrom />} />
         </Route>
 
         <Route path="/" element={<Navigate to={"/login"} replace />} />
