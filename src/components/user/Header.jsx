@@ -28,8 +28,9 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import * as authServices from "../../services/AuthService";
 
 // profile menu component
 const profileMenuItems = [
@@ -55,10 +56,17 @@ const profileMenuItems = [
 ];
 
 function ProfileMenu() {
-  const { user } = useAuth();
+  const { user, dispatch } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
+  const navigate = useNavigate();
   const closeMenu = () => setIsMenuOpen(false);
+
+  async function handleLogout() {
+    await authServices.logout();
+    dispatch({ type: "LOG_OUT" });
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -89,6 +97,36 @@ function ProfileMenu() {
       <MenuList className="p-1">
         {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
+          if (isLastItem) {
+            return (
+              <Link to={link} key={label}>
+                <MenuItem
+                  key={label}
+                  onClick={closeMenu}
+                  className={`flex items-center gap-2 rounded ${
+                    isLastItem
+                      ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                      : ""
+                  }`}
+                >
+                  {React.createElement(icon, {
+                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                    strokeWidth: 2,
+                  })}
+                  <Typography
+                    as="span"
+                    variant="small"
+                    onClick={handleLogout}
+                    className="font-normal"
+                    color={isLastItem ? "red" : "inherit"}
+                  >
+                    {label}
+                  </Typography>
+                </MenuItem>
+              </Link>
+            );
+          }
+
           return (
             <Link to={link} key={label}>
               <MenuItem

@@ -64,3 +64,15 @@ export async function resetPassword(data) {
   );
   return response.json();
 }
+
+export async function logout() {
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_URL}/auth/logout`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+}

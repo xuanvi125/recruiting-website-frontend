@@ -10,25 +10,26 @@ import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import GuestRoute from "./utils/GuestRoute";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import ProfileForm from "./components/user/ProfileForm";
+import { UpdatePasswordForm } from "./components/user/UpdatePasswordForm";
+import ResumeTable from "./components/user/ResumeTable";
 export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/user" element={<UserLayout />}>
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute>
+              <UserLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="home" index element={<HomePage />} />
           <Route path="company" element={<CompanyPage />} />
-          <Route
-            path="profile"
-            element={<ProtectedRoute>Profile</ProtectedRoute>}
-          />
-          <Route
-            path="resume"
-            element={<ProtectedRoute>Resume</ProtectedRoute>}
-          />
-          <Route
-            path="change-password"
-            element={<ProtectedRoute>Change Password</ProtectedRoute>}
-          />
+          <Route path="profile" element={<ProfileForm />} />
+          <Route path="resume" element={<ResumeTable />} />
+          <Route path="change-password" element={<UpdatePasswordForm />} />
         </Route>
 
         <Route path="/" element={<Navigate to={"/login"} replace />} />

@@ -13,9 +13,9 @@ export async function getMe() {
 export async function updateMe(data) {
   const form = new FormData();
   form.append("name", data.name);
-  form.append("image", data.image[0]);
+  form.append("file", data.file[0]);
   const token = localStorage.getItem("token");
-  const response = await fetch(`${API_URL}/users/update-me`, {
+  const response = await fetch(`${API_URL}/users/update-profile`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -44,6 +44,33 @@ export async function updateUser(id, data) {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const res = await response.json();
+  return res;
+}
+
+export async function getResume(page = 1) {
+  const token = localStorage.getItem("token");
+  const response = await fetch(
+    `${API_URL}/users/resumes?page=${page}&limit=5`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function changePassword(data) {
+  const response = await fetch(`${API_URL}/users/update-password`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
