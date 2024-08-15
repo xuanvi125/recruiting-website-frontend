@@ -43,7 +43,7 @@ function HomePage() {
   }, [searchParam]);
 
   return (
-    <div>
+    <div className="p-5">
       <Slogan />
       <div className="my-8">
         <JobSearch />

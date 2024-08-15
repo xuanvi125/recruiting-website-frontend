@@ -16,7 +16,7 @@ function CompanyPage() {
     fetchCompanies();
   }, []);
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto p-5">
       <div className="flex justify-between">
         <div>
           <Typography className="text-green-500 text-2xl font-bold">

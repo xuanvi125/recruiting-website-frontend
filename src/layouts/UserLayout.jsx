@@ -6,7 +6,7 @@ function UserLayout() {
   return (
     <div className="flex flex-col w-full min-h-screen">
       <Header />
-      <main className="flex-grow bg-gradient-to-b from-green-50 p-5">
+      <main className="flex-grow bg-gradient-to-b from-green-50">
         <Outlet />
       </main>
       <Footer />

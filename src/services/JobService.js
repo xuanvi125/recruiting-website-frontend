@@ -6,7 +6,18 @@ export async function searchJob(searchParams) {
   const keyword = searchParams.get("q") || "";
   const limit = searchParams.get("limit") || 9;
   const location = searchParams.get("location") || "";
-  const url = `${API_URL}/jobs?filter=location ~'${location}' AND ( name~'${keyword}' OR skills.name~'${keyword}') &page=${page}&limit=${limit}&sort=${sort}`;
+  const level = searchParams.get("level") || "";
+
+  let url = `${API_URL}/jobs?filter=( name~'${keyword}' OR skills.name~'${keyword}')`;
+
+  if (location) {
+    url += ` AND location ~'${location}'`;
+  }
+  if (level) {
+    url += ` AND level:'${level}'`;
+  }
+  const endQuery = `&page=${page}&limit=${limit}&sort=${sort}`;
+  url += endQuery;
   const res = await fetch(url);
   return await res.json();
 }
