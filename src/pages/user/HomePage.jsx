@@ -143,6 +143,11 @@ function HomePage() {
             </List>
           </Card>
         </div>
+        {jobs.length === 0 && (
+          <Typography className="text-center my-4">
+            Không Tìm Thấy Jobs Theo Vị Trí Trên
+          </Typography>
+        )}
         <div>
           <ListJobCard jobs={jobs} />
         </div>

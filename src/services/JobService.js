@@ -21,3 +21,9 @@ export async function searchJob(searchParams) {
   const res = await fetch(url);
   return await res.json();
 }
+
+export async function getJobById(id) {
+  const url = `${API_URL}/jobs/${id}`;
+  const res = await fetch(url);
+  return await res.json();
+}
