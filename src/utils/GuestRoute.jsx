@@ -6,7 +6,7 @@ function GuestRoute({ children }) {
   const { isInitialize, isAuth, user } = useAuth();
   if (!isInitialize) return <Loading />;
   if (isAuth && user) {
-    if (user.role == "admin") {
+    if (user.role.name == "ROLE_ADMIN" || user.role.name == "ROLE_HR") {
       return <Navigate to="/admin/home" replace />;
     }
     return <Navigate to="/user/home" replace />;

@@ -18,6 +18,12 @@ import JobSearchResult from "./pages/user/JobSearchResult";
 import JobDetails from "./pages/user/JobDetails";
 import CompanyDetails from "./pages/user/CompanyDetails";
 import VerifyAccount from "./pages/user/VerifyAccount";
+import AdminLayout from "./layouts/AdminLayout";
+import RoleRoute from "./utils/RoleRoute";
+import Home from "./pages/admin/Home";
+import UserTable from "./pages/admin/UserTable";
+import JobTable from "./pages/admin/JobTable";
+import HRResumeTable from "./pages/admin/HRResumeTable";
 export default function App() {
   return (
     <>
@@ -39,6 +45,22 @@ export default function App() {
           <Route path="job/search" element={<JobSearchResult />} />
           <Route path="job/:id" element={<JobDetails />} />
           <Route path="company/:id" element={<CompanyDetails />} />
+        </Route>
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <RoleRoute>
+                <AdminLayout />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        >
+          <Route path="home" element={<Home />} />
+          <Route path="user" element={<UserTable />} />
+          <Route path="jobs" element={<JobTable />} />
+          <Route path="resumes" element={<HRResumeTable />} />
         </Route>
 
         <Route path="/" element={<Navigate to={"/login"} replace />} />

@@ -28,7 +28,7 @@ export async function updateMe(data) {
 
 export async function getUsers(page) {
   const token = localStorage.getItem("token");
-  const response = await fetch(`${API_URL}/users?page=${page}`, {
+  const response = await fetch(`${API_URL}/admins/users?page=${page}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -37,10 +37,10 @@ export async function getUsers(page) {
   return data;
 }
 
-export async function updateUser(id, data) {
+export async function updateUser(data) {
   const token = localStorage.getItem("token");
-  const response = await fetch(`${API_URL}/users/${id}`, {
-    method: "PATCH",
+  const response = await fetch(`${API_URL}/admins/users`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
