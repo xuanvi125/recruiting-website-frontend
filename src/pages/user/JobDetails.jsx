@@ -8,6 +8,7 @@ import {
   DocumentTextIcon,
   GlobeAltIcon,
   MapPinIcon,
+  PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import BreakCrumb from "../../components/user/BreakCrumb";
 import { Link, useParams } from "react-router-dom";
@@ -79,8 +80,11 @@ function JobDetails() {
                 </div>
               </div>
             </div>
-            <Button color="green" className="mt-5 w-full">
-              Ứng Tuyển Ngay
+            <Button
+              color="green"
+              className="mt-5 w-full flex gap-2 items-center justify-center"
+            >
+              Ứng Tuyển Ngay <PaperAirplaneIcon className="h-5 w-5" />
             </Button>
           </div>
           <div className="bg-white rounded-lg w-full p-4">

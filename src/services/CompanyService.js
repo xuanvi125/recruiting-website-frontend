@@ -7,3 +7,15 @@ export async function getCompany(searchParams) {
   const res = await fetch(url);
   return await res.json();
 }
+
+export async function getCompanyById(id) {
+  const url = `${API_URL}/companies/${id}`;
+  const res = await fetch(url);
+  return await res.json();
+}
+
+export async function getCompanyJobs(id, page) {
+  const url = `${API_URL}/jobs?filter=company.id:${id}&page=${page}&limit=4`;
+  const res = await fetch(url);
+  return await res.json();
+}

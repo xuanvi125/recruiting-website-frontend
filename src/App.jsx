@@ -16,6 +16,7 @@ import ResumeTable from "./components/user/ResumeTable";
 import SubscribeJobFrom from "./components/user/SubscribeJobFrom";
 import JobSearchResult from "./pages/user/JobSearchResult";
 import JobDetails from "./pages/user/JobDetails";
+import CompanyDetails from "./pages/user/CompanyDetails";
 export default function App() {
   return (
     <>
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="subscribe-jobs" element={<SubscribeJobFrom />} />
           <Route path="job/search" element={<JobSearchResult />} />
           <Route path="job/:id" element={<JobDetails />} />
+          <Route path="company/:id" element={<CompanyDetails />} />
         </Route>
 
         <Route path="/" element={<Navigate to={"/login"} replace />} />
