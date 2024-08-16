@@ -15,8 +15,7 @@ function SignUp() {
     const res = await authServices.signUp(data);
     if (res.status === "success") {
       localStorage.setItem("token", res.token);
-      toast.success("Account created successfully");
-      window.location.reload();
+      toast.success("Please verify your email!");
     } else {
       toast.error(res.message);
     }

@@ -10,16 +10,12 @@ function ForgotPassword() {
     formState: { isSubmitting },
   } = useForm();
   const onSubmit = async (data) => {
-    await toast.promise(authServices.forgotPassword(data), {
-      loading: "Sending email...",
-      success: (data) => {
-        return data.message;
-      },
-      error: (err) => {
-        return err.message;
-      },
-    });
-    navigate("/login");
+    const res = await authServices.forgotPassword(data);
+    if (res.status === "success") {
+      toast.success("Please check your email!");
+    } else {
+      toast.error(res.message);
+    }
   };
   return (
     <section className=" dark bg-gray-900">

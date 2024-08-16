@@ -26,7 +26,7 @@ export async function changePassword(data) {
 }
 
 export async function signUp(data) {
-  const response = await fetch(`${API_URL}/users/signup`, {
+  const response = await fetch(`${API_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export async function signUp(data) {
 }
 
 export async function forgotPassword(data) {
-  const response = await fetch(`${API_URL}/users/forgot-password`, {
+  const response = await fetch(`${API_URL}/auth/forgot-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export async function forgotPassword(data) {
 export async function resetPassword(data) {
   console.log(data.token);
   const response = await fetch(
-    `${API_URL}/users/reset-password/${data.token}`,
+    `${API_URL}/auth/reset-password?token=${data.token}`,
     {
       method: "POST",
       headers: {
@@ -73,6 +73,12 @@ export async function logout() {
       Authorization: `Bearer ${token}`,
     },
   });
+  const data = await response.json();
+  return data;
+}
+
+export async function verifyAccount(token) {
+  const response = await fetch(`${API_URL}/auth/verify-account?token=${token}`);
   const data = await response.json();
   return data;
 }

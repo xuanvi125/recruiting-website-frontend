@@ -17,6 +17,7 @@ import SubscribeJobFrom from "./components/user/SubscribeJobFrom";
 import JobSearchResult from "./pages/user/JobSearchResult";
 import JobDetails from "./pages/user/JobDetails";
 import CompanyDetails from "./pages/user/CompanyDetails";
+import VerifyAccount from "./pages/user/VerifyAccount";
 export default function App() {
   return (
     <>
@@ -62,6 +63,14 @@ export default function App() {
           element={
             <GuestRoute>
               <ForgotPassword />
+            </GuestRoute>
+          }
+        />
+        <Route
+          path="/verify-account"
+          element={
+            <GuestRoute>
+              <VerifyAccount />
             </GuestRoute>
           }
         />
