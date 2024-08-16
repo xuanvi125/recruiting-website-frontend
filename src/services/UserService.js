@@ -77,3 +77,19 @@ export async function changePassword(data) {
   const res = await response.json();
   return res;
 }
+
+export async function applyJob(data) {
+  const form = new FormData();
+  form.append("jobId", data.jobId);
+  form.append("file", data.file[0]);
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_URL}/resumes`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: form,
+  });
+  const res = await response.json();
+  return res;
+}

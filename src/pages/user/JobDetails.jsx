@@ -14,6 +14,7 @@ import BreakCrumb from "../../components/user/BreakCrumb";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
+import ApplyJobDialog from "../../components/user/ApplyJobDialog";
 
 function JobDetails() {
   const [job, setJob] = useState(null);
@@ -21,7 +22,6 @@ function JobDetails() {
   useEffect(() => {
     async function fetchJob() {
       const res = await JobServices.getJobById(id);
-      console.log(res);
       if (res.status === "success") {
         setJob(res.data);
       }
@@ -80,12 +80,7 @@ function JobDetails() {
                 </div>
               </div>
             </div>
-            <Button
-              color="green"
-              className="mt-5 w-full flex gap-2 items-center justify-center"
-            >
-              Ứng Tuyển Ngay <PaperAirplaneIcon className="h-5 w-5" />
-            </Button>
+            <ApplyJobDialog job={job} />
           </div>
           <div className="bg-white rounded-lg w-full p-4">
             <Typography className="font-bold text-xl">
