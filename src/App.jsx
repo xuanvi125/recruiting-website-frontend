@@ -24,6 +24,8 @@ import Home from "./pages/admin/Home";
 import UserTable from "./pages/admin/UserTable";
 import JobTable from "./pages/admin/JobTable";
 import HRResumeTable from "./pages/admin/HRResumeTable";
+import JobForm from "./pages/admin/JobForm";
+import ProtectModule from "./utils/ProtectModule";
 export default function App() {
   return (
     <>
@@ -57,10 +59,39 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="home" element={<Home />} />
-          <Route path="user" element={<UserTable />} />
+          <Route
+            path="home"
+            element={
+              <ProtectModule roles={["ROLE_ADMIN"]}>
+                <Home />
+              </ProtectModule>
+            }
+          />
+          <Route
+            path="user"
+            element={
+              <ProtectModule roles={["ROLE_ADMIN"]}>
+                <UserTable />
+              </ProtectModule>
+            }
+          />
           <Route path="jobs" element={<JobTable />} />
-          <Route path="resumes" element={<HRResumeTable />} />
+          <Route
+            path="resumes"
+            element={
+              <ProtectModule roles={["ROLE_HR"]}>
+                <HRResumeTable />
+              </ProtectModule>
+            }
+          />
+          <Route
+            path="job/add"
+            element={
+              <ProtectModule roles={["ROLE_HR"]}>
+                <JobForm />
+              </ProtectModule>
+            }
+          />
         </Route>
 
         <Route path="/" element={<Navigate to={"/login"} replace />} />
