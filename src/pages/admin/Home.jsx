@@ -10,6 +10,7 @@ import {
 import * as companyService from "../../services/CompanyService";
 import { Link, useSearchParams } from "react-router-dom";
 import { Pagination } from "../../components/user/Pagination";
+import FilterBar from "../../components/FilterBar";
 const TABLE_HEAD = ["#", "Logo", "Name", "Address", "Action"];
 
 export default function Home() {
@@ -17,13 +18,13 @@ export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);
 
+  const fetchTableRows = async (searchParams) => {
+    const data = await companyService.getCompany(searchParams);
+    setTableRows(data.data.result);
+    setTotalPages(data.data.metaData.totalPages);
+  };
   useEffect(() => {
-    const fetchTableRows = async () => {
-      const data = await companyService.getCompany(searchParams);
-      setTableRows(data.data.result);
-      setTotalPages(data.data.metaData.totalPages);
-    };
-    fetchTableRows();
+    fetchTableRows(searchParams);
   }, [searchParams]);
 
   return (
@@ -31,10 +32,8 @@ export default function Home() {
       <Card className="h-full w-full mt-1">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-                Company
-              </Typography>
+            <div className="w-4/5">
+              <FilterBar callback={fetchTableRows} />
             </div>
 
             <Link to="/admin/company/add">
@@ -50,7 +49,7 @@ export default function Home() {
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3"
+                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                   >
                     <Typography
                       variant="small"
@@ -67,8 +66,8 @@ export default function Home() {
               {tableRows.map(({ id, name, address, logo }, index) => {
                 const isLast = index === tableRows.length - 1;
                 const classes = isLast
-                  ? "p-3"
-                  : "p-3 border-b border-blue-gray-50";
+                  ? "p-5"
+                  : "p-5 border-b border-blue-gray-50";
 
                 return (
                   <tr key={id}>
@@ -79,7 +78,7 @@ export default function Home() {
                           color="blue-gray"
                           className="font-bold"
                         >
-                          {index + 1}
+                          {id}
                         </Typography>
                       </div>
                     </td>

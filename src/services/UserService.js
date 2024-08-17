@@ -26,13 +26,18 @@ export async function updateMe(data) {
   return res;
 }
 
-export async function getUsers(page) {
+export async function getUsers(searchParams) {
+  const page = searchParams.get("page") || 1;
+  const q = searchParams.get("q") || "";
   const token = localStorage.getItem("token");
-  const response = await fetch(`${API_URL}/admins/users?page=${page}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `${API_URL}/admins/users?filter=name~'${q}'&page=${page}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   const data = await response.json();
   return data;
 }

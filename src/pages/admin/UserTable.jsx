@@ -15,6 +15,7 @@ import * as UserService from "../../services/UserService";
 import { Pagination } from "../../components/user/Pagination";
 import toast from "react-hot-toast";
 import UpdateUseButton from "../../components/admin/UpdateUseButton";
+import FilterBar from "../../components/FilterBar";
 const TABLE_HEAD = [
   "Avatar",
   "Name",
@@ -42,26 +43,20 @@ export default function UserTable() {
       toast.error(res.message);
     }
   };
+  const fetchTableRows = async (searchParams) => {
+    const data = await UserService.getUsers(searchParams);
+    setPageLimit(data.data.metaData.totalPages);
+    setTableRows(data.data.result);
+  };
   useEffect(() => {
-    const fetchTableRows = async () => {
-      if (page < 1) setSearchParams({ ...searchParams, page: 1 });
-      const data = await UserService.getUsers(page);
-      if (page > data.totalPages)
-        setSearchParams({ ...searchParams, page: data.totalPages });
-      setPageLimit(data.data.metaData.totalPages);
-      setTableRows(data.data.result);
-    };
-
-    fetchTableRows();
+    fetchTableRows(searchParams);
   }, [page, pageLimit]);
 
   return (
     <Card className="h-full w-full mt-1">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <Typography variant="h5" color="blue-gray">
-            User
-          </Typography>
+          <FilterBar callback={fetchTableRows} />
         </div>
       </CardHeader>
 

@@ -11,6 +11,7 @@ import * as jobService from "../../services/JobService";
 import { Link, useSearchParams } from "react-router-dom";
 import { Pagination } from "../../components/user/Pagination";
 import { useAuth } from "../../contexts/AuthContext";
+import FilterBar from "../../components/FilterBar";
 const TABLE_HEAD = [
   "#",
   "Name",
@@ -27,13 +28,13 @@ export default function JobTable() {
   const [totalPages, setTotalPages] = useState(1);
   const { user } = useAuth();
 
+  const fetchTableRows = async (searchParams) => {
+    const data = await jobService.searchJob(searchParams);
+    setTableRows(data.data.result);
+    setTotalPages(data.data.metaData.totalPages);
+  };
   useEffect(() => {
-    const fetchTableRows = async () => {
-      const data = await jobService.searchJob(searchParams);
-      setTableRows(data.data.result);
-      setTotalPages(data.data.metaData.totalPages);
-    };
-    fetchTableRows();
+    fetchTableRows(searchParams);
   }, [searchParams]);
 
   return (
@@ -41,15 +42,15 @@ export default function JobTable() {
       <Card className="h-full w-full mt-1">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-                Job
-              </Typography>
+            <div className="w-4/5">
+              <FilterBar callback={fetchTableRows} />
             </div>
 
-            <Link to="/admin/job/add">
-              <Button color="green">Add Job</Button>
-            </Link>
+            {user?.role.name === "ROLE_HR" && (
+              <Link to="/admin/job/add">
+                <Button color="green">Add Job</Button>
+              </Link>
+            )}
           </div>
         </CardHeader>
 
