@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import BreakCrumb from "../../components/user/BreakCrumb";
 import { Pagination } from "../../components/user/Pagination";
+import FilterBar from "../../components/FilterBar";
+import UpdateResumeDialog from "../../components/admin/UpdateResumeDialog";
 const TABLE_HEAD = [
   "ID",
   "Apply Date",
@@ -19,41 +21,26 @@ export default function ResumeTable() {
   const [resumes, setResumes] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const fetchResumes = async (searchParams) => {
+    try {
+      const page = searchParams.get("page") || 1;
+      const data = await resumeService.getResume(searchParams);
+      setResumes(data.data.result);
+      setTotalPages(data.data.metaData.totalPages);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
-    const fetchResumes = async () => {
-      try {
-        const page = searchParams.get("page") || 1;
-        const data = await resumeService.getResume(page);
-        console.log(data);
-        setResumes(data.data.result);
-        setTotalPages(data.data.metaData.totalPages);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchResumes();
+    fetchResumes(searchParams);
   }, [searchParams]);
 
-  if (resumes.length == 0) {
-    return (
-      <div className="container mx-auto mt-4 flex flex-col">
-        <BreakCrumb value={"resume"} />
-        <Typography className="font-bold mt-2 text-xl">My Resumes</Typography>
-
-        <Typography
-          variant="h6"
-          color="blue-gray"
-          className="text-center text-lg mt-8"
-        >
-          Không Tìm Thấy CV Nào
-        </Typography>
-      </div>
-    );
-  }
   return (
     <div className="container mx-auto mt-4 flex flex-col">
       <BreakCrumb value={"resume"} />
-      <Typography className="font-bold mt-2 text-xl">My Resumes</Typography>
+      <Typography className="font-bold mt-2 text-xl">
+        <FilterBar callback={fetchResumes} />
+      </Typography>
       <Card className="container mx-auto mt-3">
         <table className="w-full min-w-max table-auto text-center">
           <thead>
@@ -150,9 +137,10 @@ export default function ResumeTable() {
                     </a>
                   </td>
                   <td className={classes}>
-                    <Button size="sm" color="blue">
-                      Update
-                    </Button>
+                    <UpdateResumeDialog
+                      renderFunction={setResumes}
+                      resume={{ status, url, user, job, createdAt, id }}
+                    />
                   </td>
                 </tr>
               );

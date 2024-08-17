@@ -28,6 +28,7 @@ import JobForm from "./pages/admin/JobForm";
 import ProtectModule from "./utils/ProtectModule";
 import CompanyForm from "./pages/admin/CompanyForm";
 import UpdateCompany from "./pages/admin/UpdateCompany";
+import UpdateJob from "./pages/admin/UpdateJob";
 export default function App() {
   return (
     <>
@@ -107,6 +108,14 @@ export default function App() {
             element={
               <ProtectModule roles={["ROLE_ADMIN"]}>
                 <UpdateCompany />
+              </ProtectModule>
+            }
+          />
+          <Route
+            path="jobs/update/:id"
+            element={
+              <ProtectModule roles={["ROLE_HR"]}>
+                <UpdateJob />
               </ProtectModule>
             }
           />

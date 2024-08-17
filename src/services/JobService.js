@@ -27,3 +27,31 @@ export async function getJobById(id) {
   const res = await fetch(url);
   return await res.json();
 }
+
+export async function createJob(job) {
+  const token = localStorage.getItem("token");
+  const url = `${API_URL}/jobs`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(job),
+  });
+  return await res.json();
+}
+
+export async function updateJob(id, job) {
+  const token = localStorage.getItem("token");
+  const url = `${API_URL}/jobs`;
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(job),
+  });
+  return await res.json();
+}

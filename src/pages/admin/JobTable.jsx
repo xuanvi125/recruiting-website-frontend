@@ -148,9 +148,11 @@ export default function JobTable() {
                       </td>
                       <td className={classes}>
                         {user?.company?.id === company?.id && (
-                          <Button color="blue" size="sm">
-                            Update
-                          </Button>
+                          <Link to={`/admin/jobs/update/${id}`}>
+                            <Button color="blue" size="sm">
+                              Update
+                            </Button>
+                          </Link>
                         )}
                       </td>
                     </tr>

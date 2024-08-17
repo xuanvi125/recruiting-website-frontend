@@ -3,12 +3,14 @@ import * as JobServices from "../../services/JobService";
 import JobQueryBar from "../../components/user/JobQueryBar";
 import {
   ArrowTopRightOnSquareIcon,
+  CalendarDateRangeIcon,
   CircleStackIcon,
   DocumentIcon,
   DocumentTextIcon,
   GlobeAltIcon,
   MapPinIcon,
   PaperAirplaneIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import BreakCrumb from "../../components/user/BreakCrumb";
 import { Link, useParams } from "react-router-dom";
@@ -48,7 +50,7 @@ function JobDetails() {
         >
           <div className="bg-white w-full rounded-lg p-4">
             <Typography className="font-bold text-xl">{job.name}</Typography>
-            <div className="flex  gap-20 items-center mt-3">
+            <div className="flex gap-10 items-center mt-3">
               <div className="flex items-center gap-2 justify-between">
                 <CircleStackIcon color="green" className="h-6 w-6" />
                 <div>
@@ -77,6 +79,24 @@ function JobDetails() {
                 <div>
                   <Typography className="font-bold text-md">Level</Typography>
                   <span>{job.level}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <UserCircleIcon color="green" className="h-6 w-6" />
+                <div>
+                  <Typography className="font-bold text-md">
+                    Số Lượng Tuyển
+                  </Typography>
+                  <span>{job.quantity}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <CalendarDateRangeIcon color="green" className="h-6 w-6" />
+                <div>
+                  <Typography className="font-bold text-md">
+                    Ngày Bắt Đầu
+                  </Typography>
+                  <span>{job.startDate}</span>
                 </div>
               </div>
             </div>

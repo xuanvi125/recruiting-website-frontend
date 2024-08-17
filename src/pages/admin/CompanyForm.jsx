@@ -4,9 +4,10 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { useEffect, useState } from "react";
 import * as companyService from "../../services/CompanyService";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 function CompanyForm({ company }) {
   const [preview, setPreview] = useState("");
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -31,6 +32,7 @@ function CompanyForm({ company }) {
           error: ({ message }) => <p>{message}</p>, // Sử dụng message từ lỗi
         }
       );
+      navigate("/admin/home");
       return;
     }
 
@@ -48,6 +50,7 @@ function CompanyForm({ company }) {
         error: ({ message }) => <p>{message}</p>, // Sử dụng message từ lỗi
       }
     );
+    navigate("/admin/home");
   }
   function handlePreview(e) {
     const file = e.target.files[0];
