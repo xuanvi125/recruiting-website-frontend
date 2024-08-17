@@ -26,6 +26,8 @@ import JobTable from "./pages/admin/JobTable";
 import HRResumeTable from "./pages/admin/HRResumeTable";
 import JobForm from "./pages/admin/JobForm";
 import ProtectModule from "./utils/ProtectModule";
+import CompanyForm from "./pages/admin/CompanyForm";
+import UpdateCompany from "./pages/admin/UpdateCompany";
 export default function App() {
   return (
     <>
@@ -89,6 +91,22 @@ export default function App() {
             element={
               <ProtectModule roles={["ROLE_HR"]}>
                 <JobForm />
+              </ProtectModule>
+            }
+          />
+          <Route
+            path="company/add"
+            element={
+              <ProtectModule roles={["ROLE_ADMIN"]}>
+                <CompanyForm />
+              </ProtectModule>
+            }
+          />
+          <Route
+            path="company/update/:id"
+            element={
+              <ProtectModule roles={["ROLE_ADMIN"]}>
+                <UpdateCompany />
               </ProtectModule>
             }
           />

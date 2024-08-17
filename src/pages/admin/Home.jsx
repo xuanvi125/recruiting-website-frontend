@@ -110,9 +110,11 @@ export default function Home() {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Button color="blue" size="sm">
-                        Update
-                      </Button>
+                      <Link to={`/admin/company/update/${id}`}>
+                        <Button color="blue" size="sm">
+                          Update
+                        </Button>
+                      </Link>
                     </td>
                   </tr>
                 );
