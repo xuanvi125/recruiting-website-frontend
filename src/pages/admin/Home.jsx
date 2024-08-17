@@ -43,7 +43,7 @@ export default function Home() {
         </CardHeader>
 
         <CardBody className="px-0 -mt-2 ">
-          <table className="w-full table-auto text-left">
+          <table className="w-full table-auto text-center">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
@@ -66,13 +66,13 @@ export default function Home() {
               {tableRows.map(({ id, name, address, logo }, index) => {
                 const isLast = index === tableRows.length - 1;
                 const classes = isLast
-                  ? "p-5"
-                  : "p-5 border-b border-blue-gray-50";
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
 
                 return (
                   <tr key={id}>
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
+                      <div>
                         <Typography
                           variant="small"
                           color="blue-gray"
@@ -84,12 +84,12 @@ export default function Home() {
                     </td>
 
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
+                      <div>
                         <Avatar src={logo} color="lightBlue" size="small" />
                       </div>
                     </td>
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
+                      <div>
                         <Typography
                           variant="small"
                           color="blue-gray"

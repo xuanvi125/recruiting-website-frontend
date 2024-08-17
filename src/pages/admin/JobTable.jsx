@@ -55,18 +55,18 @@ export default function JobTable() {
         </CardHeader>
 
         <CardBody className="px-0 -mt-2 ">
-          <table className="w-full table-auto text-left">
+          <table className="w-full table-auto text-center">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3"
+                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                   >
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal leading-none opacity-70"
+                      className="font-bold text-md leading-none opacity-70"
                     >
                       {head}
                     </Typography>
@@ -79,17 +79,17 @@ export default function JobTable() {
                 ({ id, name, level, company, location, salary }, index) => {
                   const isLast = index === tableRows.length - 1;
                   const classes = isLast
-                    ? "p-3"
-                    : "p-3 border-b border-blue-gray-50";
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
 
                   return (
                     <tr key={id}>
                       <td className={classes}>
-                        <div className="flex items-center gap-3">
+                        <div>
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-bold"
+                            className="font-normal"
                           >
                             {id}
                           </Typography>
@@ -97,11 +97,11 @@ export default function JobTable() {
                       </td>
 
                       <td className={classes}>
-                        <div className="flex items-center gap-3">
+                        <div>
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-bold"
+                            className="font-normal"
                           >
                             {name}
                           </Typography>
